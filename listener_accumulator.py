@@ -5,8 +5,7 @@ class listen_accumulator:
 	def __init__(self):
 		rospy.init_node('listener_accumulator', anonymous=True)
 
-		self.listening=threading.Thread(target=self.listen,)
-		self.listening.start()
+		self.listen()
 		self.chatter_data = ''
 		self.pub = rospy.Publisher('chatter_repeated',String, queue_size=10)
 		self.rate = rospy.Rate(.333)
@@ -21,11 +20,11 @@ class listen_accumulator:
 
 	def listen(self):
 		sub = rospy.Subscriber('chatter',String,self.callback)
-		rospy.spin()
+
 
 	def callback(self,data):
 		self.chatter_data = data
-
+		print("hello")
 if __name__ == '__main__':
 	try:
 		x=listen_accumulator()
